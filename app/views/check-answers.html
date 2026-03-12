@@ -1,0 +1,88 @@
+{% extends "govuk/template.njk" %}
+
+{% block pageTitle %}Check your answers before sending – GOV.UK{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "https://www.gov.uk",
+    serviceName: "Apply for free school meals",
+    serviceUrl: "/"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    <h1 class="govuk-heading-xl">Check your answers before sending</h1>
+
+    {{ govukSummaryList({
+      rows: [
+      {
+        key: { text: "Is your child school age?" },
+        value: { text: data['child-school-age'] if data['child-school-age'] else "Not provided" },
+        actions: {
+          items: [{
+            href: "/child-school-age",
+            text: "Change",
+            visuallyHiddenText: "is your child school age?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is your child's full name?" },
+        value: { text: data['child-name'] if data['child-name'] else "Not provided" },
+        actions: {
+          items: [{
+            href: "/child-name",
+            text: "Change",
+            visuallyHiddenText: "what is your child's full name?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is the name of your child's school?" },
+        value: { text: data['child-school'] if data['child-school'] else "Not provided" },
+        actions: {
+          items: [{
+            href: "/child-school",
+            text: "Change",
+            visuallyHiddenText: "what is the name of your child's school?"
+          }]
+        }
+      },
+      {
+        key: { text: "Do you receive any qualifying benefits?" },
+        value: { text: data['receive-benefits'] if data['receive-benefits'] else "Not provided" },
+        actions: {
+          items: [{
+            href: "/receive-benefits",
+            text: "Change",
+            visuallyHiddenText: "do you receive any qualifying benefits?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is your National Insurance number?" },
+        value: { text: data['national-insurance'] if data['national-insurance'] else "Not provided" },
+        actions: {
+          items: [{
+            href: "/national-insurance",
+            text: "Change",
+            visuallyHiddenText: "what is your national insurance number?"
+          }]
+        }
+      }
+      ]
+    }) }}
+
+    <form method="post" novalidate>
+      <input type="hidden" name="_csrf" value="{{ csrf }}">
+      {{ govukButton({ text: "Confirm and send" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
